@@ -84,8 +84,15 @@ jobs:
           apiVersion: kubeadm.k8s.io/v1beta3
           kind: InitConfiguration
           localAPIEndpoint:
-            advertiseAddress: ${master_ip}
+            advertiseAddress: 172.31.93.141  # Dynamically set the master node IP address
             bindPort: 6443
+          nodeRegistration:
+            criSocket: unix:///var/run/cri-dockerd.sock
+          ---
+          apiVersion: kubeadm.k8s.io/v1beta3
+          kind: ClusterConfiguration
+          networking:
+            podSubnet: 192.168.0.3/16
           " > /home/runner/work/kubeclstr-using-terraformansible/kubeclstr-using-terraformansible/masterip.yaml.j2      
       
       
