@@ -42,7 +42,7 @@ jobs:
       - name: Configure Ansible Inventory
         run: |
           echo "[master]" > inventory
-          echo "master-node ansible_host=${env.master_ip]} ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/id_rsa" >> inventory
+          echo "master-node ansible_host=${env.master_ip} ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/id_rsa" >> inventory
 
           echo "[workers]" >> inventory
           echo "worker1 ansible_host=${env.worker1_ip} ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/id_rsa" >> inventory
