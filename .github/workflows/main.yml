@@ -11,13 +11,13 @@ jobs:
     steps:
       # Checkout the repository
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       # Set up Terraform
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v4
         with:
-          terraform_version: 1.9.1
+          terraform_version: 1.9.7
          
       # Terraform init and apply
       - name: Terraform Init
