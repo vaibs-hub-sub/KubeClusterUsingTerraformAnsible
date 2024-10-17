@@ -26,7 +26,16 @@ if you have changed the name of the repo insert your repo name in this part of t
           
           " > /home/runner/work/kubeclstr-using-terraformansible/kubeclstr-using-terraformansible/masterip.yaml.j2 # change the name two times here 
 ```
-first one is your runners name  and the second one is where your repo is saved with all the files 
+Directory Structure Explained:
+
+`/home/runner/work/`:
+This is the base directory where all work directories for GitHub Actions jobs are created.
+
+`<repository-name>/`:
+The first instance of <repository-name> is a directory created under work specifically for your repository. This is where the action's workspace for the job resides.
+
+Second `<repository-name>/`:
+The second instance of <repository-name> is the actual clone of your repository that is checked out into this workspace directory. When the repository is cloned, it is placed in a folder named after the repository.
 
 
 
