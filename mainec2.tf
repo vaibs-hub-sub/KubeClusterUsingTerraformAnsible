@@ -20,6 +20,9 @@ resource "aws_instance" "Team3-proj" {
 ami = "ami-0e86e20dae9224db8"
 count= 3
 
+# SSH key pair
+  key_name = "awskp"
+
    instance_type = var.list[count.index]
 tags= {
 Name= var.elb-names[count.index]
