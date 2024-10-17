@@ -1,6 +1,6 @@
 variable "elb-names" {
   type = list
-  default = ["Team3-kuber-master", "Team3-kuber-n1","Team3-Kuber-n2"]
+  default = ["kuber-master", "kuber-w1","Kuber-w2"]
 }
 
 variable "list" {
@@ -16,7 +16,7 @@ provider "aws" {
 # secret_key = "PUT-YOUR-SECRET-KEY-HERE"
 }
 
-resource "aws_instance" "Team3-proj" {
+resource "aws_instance" "kube" {
 ami = "ami-0dee22c13ea7a9a67"
 count= 3
 
@@ -34,5 +34,5 @@ Name= var.elb-names[count.index]
   }
 }
 output "instances_ip" {
-  value = aws_instance.Team3-proj[*].public_ip
+  value = aws_instance.kube[*].public_ip
 }
