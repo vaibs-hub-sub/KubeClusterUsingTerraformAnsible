@@ -33,23 +33,30 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: terraform apply -auto-approve
 
-      # Save Terraform output for later use
-      - name: Save Terraform Output
-        id: tf_output
-        run: echo "instances_ip=$(terraform output -json instances_ip)" >> $GITHUB_ENV
-
-      # Configure Ansible Inventory using Terraform output
+      - name: Set Terraform Output to Environment
+        run: |
+          echo "instances_ip=$(terraform output -json instances_ip)" >> $GITHUB_ENV
+        
       - name: Configure Ansible Inventory
         run: |
+          # Extract IPs using jq
+          ips=$(echo ${{ env.instances_ip }} | jq -r '.[]')
+          ip_array=($ips)
+          
+          # Write the inventory file
           echo "[master]" > inventory
-          echo "master-node ansible_host=${{ env.instances_ip[0] }} ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/id_rsa" >> inventory
+          echo "master-node ansible_host=${ip_array[0]} ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/id_rsa" >> inventory
 
           echo "[workers]" >> inventory
-          echo "worker1 ansible_host=${{ env.instances_ip[1] }} ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/id_rsa"  >> inventory
-          echo "worker2 ansible_host=${{ env.instances_ip[2] }} ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/id_rsa" >> inventory
+          echo "worker1 ansible_host=${ip_array[1]} ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/id_rsa" >> inventory
+          echo "worker2 ansible_host=${ip_array[2]} ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/id_rsa" >> inventory
 
           echo "[all:vars]" >> inventory
           echo "ansible_python_interpreter=/usr/bin/python3" >> inventory
+        shell: /usr/bin/bash -e {0}
+        env:
+          TERRAFORM_CLI_PATH: /home/runner/work/_temp/a44a6cd1-106f-4553-8eaf-f019eedaf820
+
 
       
       - name: Debug Inventory File
