@@ -51,11 +51,11 @@ Name= kube-w2
   }
 }
 output "master_ip" {
-  master_ip = aws_instance.master.public_ip
+  value = aws_instance.master.public_ip
 }
 output "worker1_ip" {
-  worker1_ip = aws_instance.master.public_ip
+  value = aws_instance.master.public_ip
 }
 output "worker2_ip" {
-  worker2_ip = aws_instance.master.public_ip
+  value = aws_instance.master.public_ip
 }
