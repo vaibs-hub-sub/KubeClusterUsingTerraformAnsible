@@ -31,6 +31,7 @@ jobs:
 
       - name: Set Terraform Output to Environment
         run: |
+          echo "masterp_ip=$(terraform output -raw masterp_ip)" >> $GITHUB_ENV
           echo "master_ip=$(terraform output -raw master_ip)" >> $GITHUB_ENV
           echo "worker1_ip=$(terraform output -raw worker1_ip)" >> $GITHUB_ENV
           echo "worker2_ip=$(terraform output -raw worker2_ip)" >> $GITHUB_ENV
@@ -84,7 +85,7 @@ jobs:
           apiVersion: kubeadm.k8s.io/v1beta3
           kind: InitConfiguration
           localAPIEndpoint:
-            advertiseAddress: 172.31.93.141  # Dynamically set the master node IP address
+            advertiseAddress: ${masterp_ip}  # Dynamically set the master node IP address
             bindPort: 6443
           nodeRegistration:
             criSocket: unix:///var/run/cri-dockerd.sock
