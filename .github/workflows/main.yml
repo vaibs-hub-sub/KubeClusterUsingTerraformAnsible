@@ -76,9 +76,10 @@ jobs:
 
       - name: Install cri-dockerd
         run: ansible-playbook -i inventory installcrid.yaml
-
+            
       - name: Initialize Master Node
         run: ansible-playbook -i inventory kubemasterinit.yaml
+        working-directory: /home/runner/work/kubeclstr-using-terraformansible/kubeclstr-using-terraformansible
 
       - name: Join Worker Nodes
         run: ansible-playbook -i inventory workerjoin.yaml
