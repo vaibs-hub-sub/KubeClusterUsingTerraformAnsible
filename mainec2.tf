@@ -48,6 +48,9 @@ Name= "w2"
     volume_type = "gp2"  # General Purpose SSD
   }
 }
+output "masterp_ip" {
+  value = aws_instance.master.private_ip
+}
 output "master_ip" {
   value = aws_instance.master.public_ip
 }
