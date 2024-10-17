@@ -34,11 +34,7 @@ jobs:
           echo "master_ip=$(terraform output -raw master_ip)" >> $GITHUB_ENV
           echo "worker1_ip=$(terraform output -raw worker1_ip)" >> $GITHUB_ENV
           echo "worker2_ip=$(terraform output -raw worker2_ip)" >> $GITHUB_ENV
-  ansible-config:
-    needs: terraform-apply
-    name: configuration with ansible
-    runs-on: ubuntu-latest  
-    steps:   
+    
       - name: Checkout Code
         uses: actions/checkout@v4
       # Install Ansible
@@ -51,7 +47,6 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
       
-          
       - name: Configure Ansible Inventory
         run: |
           echo "[master]" > inventory
