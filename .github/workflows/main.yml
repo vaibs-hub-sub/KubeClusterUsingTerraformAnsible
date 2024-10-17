@@ -15,7 +15,7 @@ jobs:
 
       # Set up Terraform
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
+        uses: hashicorp/setup-terraform@v4
         with:
           terraform_version: 1.9.1
          
@@ -37,7 +37,7 @@ jobs:
           echo "worker2_ip=$(terraform output -raw worker2_ip)" >> variables.txt
       
       - name: Upload variables file
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: variables
           path: variables.txt
@@ -51,7 +51,7 @@ jobs:
       # Install Ansible
       
       - name: Download variables file
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: variables
       
