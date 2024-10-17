@@ -12,7 +12,7 @@
     # Create the Kubernetes configuration file needed for initializing the master node
     - name: Create Kubernetes configuration file
       template:
-        src: ./template/masterip.yaml.j2  # Path relative to the repo
+        src: masterip.yaml.j2  # Path relative to the repo
         dest: /root/kube/config.yaml
     # Initialize the Kubernetes master node using kubeadm and the configuration file
     - name: Initialize Kubernetes master with kubeadm
