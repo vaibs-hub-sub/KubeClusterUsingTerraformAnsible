@@ -58,7 +58,9 @@ jobs:
           echo "ansible_python_interpreter=/usr/bin/python3" >> inventory
               
       - name: Debug Inventory File
-        run: cat inventory
+        run: |
+          cat inventory
+          cat /.ssh/id_rsa
               
       # Run Ansible Playbooks to Install Kubernetes and Docker
       - name: Run Base Setup Playbook
