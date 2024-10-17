@@ -5,7 +5,7 @@
   tasks:
     # Apply the default Calico network plugin
     - name: Install Calico network plugin
-      shell: kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/manifests/calico.yaml
+      shell: kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/manifests/calico.yaml --validate=false
     # Patch Calico to add the IP_AUTODETECTION_METHOD environment variable
     - name: Patch Calico node daemonset to set IP_AUTODETECTION_METHOD
       shell: |
