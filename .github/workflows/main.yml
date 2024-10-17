@@ -11,7 +11,7 @@ jobs:
     steps:
       # Checkout the repository
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # Set up Terraform
       - name: Setup Terraform
@@ -41,7 +41,7 @@ jobs:
     steps:
       # Checkout the repository
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       # Install Ansible
       - name: Install Ansible
         run: sudo apt-get update && sudo apt-get install -y ansible
