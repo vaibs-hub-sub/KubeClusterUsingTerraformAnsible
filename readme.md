@@ -18,7 +18,8 @@ all of the things except these secrets are done dynamically so you just have to 
 
 ---
 if you have changed the name of the repo insert your repo name in this part of the main.yml of the workflow and you are good to go
-```
+
+``` yaml
 - name: Create J2 template file
         run: |
           mkdir -p /home/runner/work/kubeclstr-using-terraformansible/kubeclstr-using-terraformansible/templates # change the name two times here 
@@ -26,6 +27,7 @@ if you have changed the name of the repo insert your repo name in this part of t
           
           " > /home/runner/work/kubeclstr-using-terraformansible/kubeclstr-using-terraformansible/masterip.yaml.j2 # change the name two times here 
 ```
+
 Directory Structure Explained:
 
 `/home/runner/work/`:
