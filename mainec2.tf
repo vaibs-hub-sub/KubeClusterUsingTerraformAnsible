@@ -13,7 +13,7 @@ resource "aws_instance" "master" {
 ami = "ami-0dee22c13ea7a9a67"
 instance_type = "t2.medium"
 # SSH key pair
-  key_name = "awskp"
+  key_name = "my-aws-key"
 
 tags= {
 Name= "master"
