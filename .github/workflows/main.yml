@@ -39,6 +39,12 @@ jobs:
           echo "worker1_ip=$(terraform output -raw worker1_ip)" >> $GITHUB_ENV
           echo "worker2_ip=$(terraform output -raw worker2_ip)" >> $GITHUB_ENV
         
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          
       - name: Configure Ansible Inventory
         run: |
           echo "[master]" > inventory
@@ -53,14 +59,7 @@ jobs:
               
       - name: Debug Inventory File
         run: cat inventory
-      
-      # Set up SSH key (GitHub secrets should have SSH private key for EC2 access)
-      - name: Set up SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-        
+              
       # Run Ansible Playbooks to Install Kubernetes and Docker
       - name: Run Base Setup Playbook
         run: ansible-playbook -i inventory basesetup.yaml
