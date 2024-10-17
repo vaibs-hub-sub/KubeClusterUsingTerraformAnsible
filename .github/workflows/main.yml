@@ -66,6 +66,7 @@ jobs:
       
       - name: Configure Ansible Inventory
         run: |
+          source variables.txt
           echo "[master]" > inventory
           echo "master-node ansible_host=${master_ip} ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/id_rsa" >> inventory
 
@@ -78,6 +79,7 @@ jobs:
 
       - name: Add remote host key to known hosts
         run: |
+          source variables.txt
           ssh-keyscan -H ${master_ip} >> ~/.ssh/known_hosts
           ssh-keyscan -H ${worker1_ip} >> ~/.ssh/known_hosts
           ssh-keyscan -H ${worker2_ip} >> ~/.ssh/known_hosts      
@@ -90,6 +92,7 @@ jobs:
       
       - name: Create J2 template file
         run: |
+          source variables.txt
           mkdir -p /home/runner/work/kubeclstr-using-terraformansible/kubeclstr-using-terraformansible/templates
           echo "
           apiVersion: kubeadm.k8s.io/v1beta3
@@ -106,11 +109,9 @@ jobs:
             podSubnet: 192.168.0.3/16
           " > /home/runner/work/kubeclstr-using-terraformansible/kubeclstr-using-terraformansible/masterip.yaml.j2      
       
-      
       - name: Initialize Master Node
         run: ansible-playbook -i inventory kubemasterinit.yaml
         
-
       - name: Join Worker Nodes
         run: ansible-playbook -i inventory workerjoin.yaml
         
