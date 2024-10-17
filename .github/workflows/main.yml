@@ -32,8 +32,8 @@ jobs:
       # Save Terraform output for later use
       - name: Save Terraform Output
         id: tf_output
-        run: echo "instances_ip=$(terraform output -json | jq -r '.instances_ip.value')" >> $GITHUB_ENV
-
+        run: echo "instances_ip=$(terraform output -raw instances_ip.value)" >> $GITHUB_ENV
+        
       # Install Ansible
       - name: Install Ansible
         run: sudo apt-get update && sudo apt-get install -y ansible
