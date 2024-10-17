@@ -2,6 +2,7 @@
 ## ***kubernetes cluster using terraform and ansible in github actions pipeline*** ##
 
 In this project we create a github pipeline to create a kubeadm cluster using terraform for provisioning and ansible for configuration
+
 ---
 ## ***key notes*** ##
 
@@ -14,6 +15,7 @@ add some secrets first in ur github repo
 `SSH_PRIVATE_KEY` - go into your ec2 section and generate a keypair and save the data from .pem file that you download in your local machine as your secret
 
 all of the things except these secrets are done dynamically so you just have to run the pipeline from the actions tab
+
 ---
 if you have changed the name of the repo insert your repo name in this part of the main.yml of the workflow and you are good to go
 ```
