@@ -64,7 +64,8 @@ jobs:
         run: |
           cat inventory
           cat ~/.ssh/id_rsa
-          sleep 30
+          cat ~/.ssh/id_rsa.pub
+          
               
       # Run Ansible Playbooks to Install Kubernetes and Docker
       - name: Run Base Setup Playbook
