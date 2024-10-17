@@ -1,0 +1,81 @@
+name: Terraform and Ansible Cluster Setup
+
+on: 
+  workflow_dispatch:
+
+jobs:
+  terraform-apply:
+    name: Provision EC2 Instances with Terraform
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Set up Terraform
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.0
+
+      # Terraform init and apply
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Plan
+        run: terraform plan
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
+
+      # Save Terraform output for later use
+      - name: Save Terraform Output
+        id: tf_output
+        run: echo "::set-output name=instances_ip::$(terraform output -json | jq -r '.instances_ip.value')"
+
+  ansible-install:
+    name: Install Kubernetes with Ansible
+    runs-on: ubuntu-latest
+    needs: terraform-apply
+
+    steps:
+      # Checkout the repository
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Install Ansible
+      - name: Install Ansible
+        run: sudo apt-get update && sudo apt-get install -y ansible
+
+      # Set up SSH key (GitHub secrets should have SSH private key for EC2 access)
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
+      # Configure Ansible hosts using Terraform output
+      - name: Configure Ansible Inventory
+        run: |
+          echo "[master]" > inventory
+          echo "${{ steps.tf_output.outputs.instances_ip[0] }}" >> inventory
+          echo "[workers]" >> inventory
+          echo "${{ steps.tf_output.outputs.instances_ip[1] }}" >> inventory
+          echo "${{ steps.tf_output.outputs.instances_ip[2] }}" >> inventory
+
+      # Run Ansible Playbooks to Install Kubernetes and Docker
+      - name: Run Base Setup Playbook
+        run: ansible-playbook -i inventory basesetup.yaml
+
+      - name: Install cri-dockerd
+        run: ansible-playbook -i inventory installcrid.yaml
+
+      - name: Install Calico Networking
+        run: ansible-playbook -i inventory calicoinstall.yaml
+
+      - name: Initialize Master Node
+        run: ansible-playbook -i inventory kubemasterinit.yaml
+
+      - name: Join Worker Nodes
+        run: ansible-playbook -i inventory workerjoin.yaml
