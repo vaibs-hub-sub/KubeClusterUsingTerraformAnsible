@@ -18,11 +18,7 @@ jobs:
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.9.1
-      
-      # Install Ansible
-      - name: Install Ansible
-        run: sudo apt-get update && sudo apt-get install -y ansible
-    
+         
       # Terraform init and apply
       - name: Terraform Init
         run: terraform init
@@ -38,6 +34,14 @@ jobs:
           echo "master_ip=$(terraform output -raw master_ip)" >> $GITHUB_ENV
           echo "worker1_ip=$(terraform output -raw worker1_ip)" >> $GITHUB_ENV
           echo "worker2_ip=$(terraform output -raw worker2_ip)" >> $GITHUB_ENV
+  ansible-config:
+    name: configuring kube cluster with the help of ansible
+    runs-on: ubuntu-latest   
+    
+    steps:
+      # Install Ansible
+      - name: Install Ansible
+        run: sudo apt-get update && sudo apt-get install -y ansible
         
       - name: Set up SSH
         run: |
@@ -61,6 +65,7 @@ jobs:
         run: |
           cat inventory
           cat ~/.ssh/id_rsa
+          sleep 30
               
       # Run Ansible Playbooks to Install Kubernetes and Docker
       - name: Run Base Setup Playbook
