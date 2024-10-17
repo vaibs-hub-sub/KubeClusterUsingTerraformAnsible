@@ -31,14 +31,30 @@ jobs:
 
       - name: Set Terraform Output to Environment
         run: |
-          echo "masterp_ip=$(terraform output -raw masterp_ip)" >> $GITHUB_ENV
-          echo "master_ip=$(terraform output -raw master_ip)" >> $GITHUB_ENV
-          echo "worker1_ip=$(terraform output -raw worker1_ip)" >> $GITHUB_ENV
-          echo "worker2_ip=$(terraform output -raw worker2_ip)" >> $GITHUB_ENV
-    
+          echo "masterp_ip=$(terraform output -raw masterp_ip)" > variables.txt
+          echo "master_ip=$(terraform output -raw master_ip)" >> variables.txt
+          echo "worker1_ip=$(terraform output -raw worker1_ip)" >> variables.txt
+          echo "worker2_ip=$(terraform output -raw worker2_ip)" >> variables.txt
+      
+      - name: Upload variables file
+        uses: actions/upload-artifact@v3
+        with:
+          name: variables
+          path: variables.txt
+  
+  ansible-configure:  
+    needs: terraform-apply
+    runs-on: ubuntu-latest
+    steps:  
       - name: Checkout Code
         uses: actions/checkout@v4
       # Install Ansible
+      
+      - name: Download variables file
+        uses: actions/download-artifact@v3
+        with:
+          name: variables
+      
       - name: Install Ansible
         run: sudo apt-get update && sudo apt-get install -y ansible
         
