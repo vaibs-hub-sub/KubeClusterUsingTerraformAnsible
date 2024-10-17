@@ -30,3 +30,6 @@ Name= var.elb-names[count.index]
     volume_type = "gp2"  # General Purpose SSD
   }
 }
+output "instances_ip" {
+  value = aws_instance.Team3-proj[*].public_ip
+}
