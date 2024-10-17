@@ -48,11 +48,11 @@ jobs:
       - name: Configure Ansible Inventory
         run: |
           echo "[master]" > inventory
-          echo "master-node ansible_host=${{ steps.tf_output.outputs.instances_ip[0] }} " >> inventory
+          echo "master-node ansible_host=${{ $GITHUB_ENV.instances_ip[0] }} ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/id_rsa" >> inventory
 
           echo "[workers]" >> inventory
-          echo "worker1 ansible_host=${{ steps.tf_output.outputs.instances_ip[1] }} "  >> inventory
-          echo "worker2 ansible_host=${{ steps.tf_output.outputs.instances_ip[2] }} " >> inventory
+          echo "worker1 ansible_host=${{ $GITHUB_ENV.instances_ip[1] }} ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/id_rsa"  >> inventory
+          echo "worker2 ansible_host=${{ $GITHUB_ENV.instances_ip[2] }} ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/id_rsa" >> inventory
 
           echo "[all:vars]" >> inventory
           echo "ansible_python_interpreter=/usr/bin/python3" >> inventory
