@@ -1,5 +1,12 @@
+
+
 provider "aws" {
   region     = "ap-south-1"
+}
+# Define the SSH key pair resource
+resource "aws_key_pair" "mykey" {
+  key_name   = "my-aws-key"  # Name of the key pair in AWS
+  public_key = ${secrets.myawskp.pub} # Reference the public key file
 }
 
 resource "aws_instance" "master" {
