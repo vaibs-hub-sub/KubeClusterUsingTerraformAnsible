@@ -18,7 +18,11 @@ jobs:
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.9.1
-
+      
+      # Install Ansible
+      - name: Install Ansible
+        run: sudo apt-get update && sudo apt-get install -y ansible
+    
       # Terraform init and apply
       - name: Terraform Init
         run: terraform init
@@ -33,17 +37,7 @@ jobs:
       - name: Save Terraform Output
         id: tf_output
         run: echo "instances_ip=$(terraform output -json instances_ip)" >> $GITHUB_ENV
-        
-      # Install Ansible
-      - name: Install Ansible
-        run: sudo apt-get update && sudo apt-get install -y ansible
 
-      # Set up SSH key (GitHub secrets should have SSH private key for EC2 access)
-      - name: Set up SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
       # Configure Ansible Inventory using Terraform output
       - name: Configure Ansible Inventory
         run: |
@@ -60,6 +54,14 @@ jobs:
       
       - name: Debug Inventory File
         run: cat inventory
+      
+      # Set up SSH key (GitHub secrets should have SSH private key for EC2 access)
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+        
       # Run Ansible Playbooks to Install Kubernetes and Docker
       - name: Run Base Setup Playbook
         run: ansible-playbook -i inventory basesetup.yaml
