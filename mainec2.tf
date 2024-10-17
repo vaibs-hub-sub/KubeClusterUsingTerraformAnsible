@@ -9,7 +9,7 @@ instance_type = "t2.medium"
   key_name = "awskp"
 
 tags= {
-Name= master
+Name= "master"
 }
 # Block device mapping for the EBS volume
   root_block_device {
@@ -24,7 +24,7 @@ instance_type = "t2.medium"
   key_name = "awskp"
 
 tags= {
-Name= w1
+Name= "w1"
 }
 # Block device mapping for the EBS volume
   root_block_device {
@@ -39,7 +39,7 @@ instance_type = "t2.medium"
   key_name = "awskp"
 
 tags= {
-Name= w2
+Name= "w2"
 }
 # Block device mapping for the EBS volume
   root_block_device {
