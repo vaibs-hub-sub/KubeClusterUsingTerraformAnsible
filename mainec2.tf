@@ -50,8 +50,12 @@ Name= kube-w2
     volume_type = "gp2"  # General Purpose SSD
   }
 }
-output "instances_ip" {
-  value = aws_instance.master.public_ip
-  value = aws_instance.worker1.public_ip
-  value = aws_instance.worker2.public_ip
+output "master_ip" {
+  master_ip = aws_instance.master.public_ip
+}
+output "worker1_ip" {
+  worker1_ip = aws_instance.master.public_ip
+}
+output "worker2_ip" {
+  worker2_ip = aws_instance.master.public_ip
 }
