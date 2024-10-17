@@ -1,9 +1,9 @@
 
-##***kubernetes cluster using terraform and ansible in github actions pipeline***##
+##***kubernetes cluster using terraform and ansible in github actions pipeline***
 
 In this project we create a github pipeline to create a kubeadm cluster using terraform for provisioning and ansible for configuration
 ---
-##***key notes***##
+##***key notes***
 
 add some secrets first in ur github repo 
 
