@@ -75,13 +75,7 @@ jobs:
 
           echo "[all:vars]" >> inventory
           echo "ansible_python_interpreter=/usr/bin/python3" >> inventory
-              
-      - name: Debug Inventory File
-        run: |
-          cat inventory
-          cat ~/.ssh/id_rsa
-          
-          
+
       - name: Add remote host key to known hosts
         run: |
           ssh-keyscan -H ${master_ip} >> ~/.ssh/known_hosts
