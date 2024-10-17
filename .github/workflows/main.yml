@@ -60,7 +60,7 @@ jobs:
       - name: Debug Inventory File
         run: |
           cat inventory
-          cat /.ssh/id_rsa
+          cat ~/.ssh/id_rsa
               
       # Run Ansible Playbooks to Install Kubernetes and Docker
       - name: Run Base Setup Playbook
