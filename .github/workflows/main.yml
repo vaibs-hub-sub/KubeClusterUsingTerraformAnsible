@@ -84,7 +84,7 @@ jobs:
           apiVersion: kubeadm.k8s.io/v1beta3
           kind: InitConfiguration
           localAPIEndpoint:
-            advertiseAddress: {{ master_ip }}
+            advertiseAddress: ${master_ip}
             bindPort: 6443
           " > /home/runner/work/kubeclstr-using-terraformansible/kubeclstr-using-terraformansible/masterip.yaml.j2      
       
