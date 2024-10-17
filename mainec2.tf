@@ -4,11 +4,10 @@ provider "aws" {
 
 resource "aws_instance" "master" {
 ami = "ami-0dee22c13ea7a9a67"
-
+instance_type = "t2.medium"
 # SSH key pair
   key_name = "awskp"
 
-   instance_type = t2.medium
 tags= {
 Name= kube-m
 }
@@ -20,11 +19,10 @@ Name= kube-m
 }
 resource "aws_instance" "worker1" {
 ami = "ami-0dee22c13ea7a9a67"
-
+instance_type = "t2.medium"
 # SSH key pair
   key_name = "awskp"
 
-   instance_type = t2.medium
 tags= {
 Name= kube-w1
 }
@@ -36,11 +34,10 @@ Name= kube-w1
 }
 resource "aws_instance" "worker2" {
 ami = "ami-0dee22c13ea7a9a67"
-
+instance_type = "t2.medium"
 # SSH key pair
   key_name = "awskp"
 
-   instance_type = t2.medium
 tags= {
 Name= kube-w2
 }
