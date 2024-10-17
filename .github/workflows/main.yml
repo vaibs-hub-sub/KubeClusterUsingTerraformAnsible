@@ -86,7 +86,7 @@ jobs:
           localAPIEndpoint:
             advertiseAddress: {{ master_ip }}
             bindPort: 6443
-          " > /home/runner/work/kubeclstr-using-terraformansible/kubeclstr-using-terraformansible/templates/masterip.yaml.j2      
+          " > /home/runner/work/kubeclstr-using-terraformansible/kubeclstr-using-terraformansible/masterip.yaml.j2      
       
       
       - name: Initialize Master Node
