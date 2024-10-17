@@ -10,14 +10,14 @@ variable "list" {
 
 
 provider "aws" {
-  region     = "us-east-1"
+  region     = "ap-south-1"
 #  version = "5.60.0"
 # access_key = "PUT-YOUR-ACCESS-KEY-HERE"
 # secret_key = "PUT-YOUR-SECRET-KEY-HERE"
 }
 
 resource "aws_instance" "Team3-proj" {
-ami = "ami-0e86e20dae9224db8"
+ami = "ami-0dee22c13ea7a9a67"
 count= 3
 
 # SSH key pair
