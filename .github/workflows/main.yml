@@ -35,6 +35,7 @@ jobs:
           echo "worker1_ip=$(terraform output -raw worker1_ip)" >> $GITHUB_ENV
           echo "worker2_ip=$(terraform output -raw worker2_ip)" >> $GITHUB_ENV
   ansible-config:
+    needs: terraform-apply
     name: configuring kube cluster with the help of ansible
     runs-on: ubuntu-latest   
     
