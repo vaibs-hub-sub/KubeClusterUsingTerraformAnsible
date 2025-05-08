@@ -1,13 +1,13 @@
 
 
 provider "aws" {
-  region     = "ap-south-1"
+  region     = "ap-south-2"
 }
 resource "aws_instance" "master" {
-ami = "ami-0dee22c13ea7a9a67"
+ami = "ami-053a0835435bf4f45"
 instance_type = "t2.medium"
 # SSH key pair
-  key_name = "my-aws-key"
+  key_name = "hydra"
 
 tags= {
 Name= "master"
@@ -19,10 +19,10 @@ Name= "master"
   }
 }
 resource "aws_instance" "worker1" {
-ami = "ami-0dee22c13ea7a9a67"
-instance_type = "t2.medium"
+ami = "ami-053a0835435bf4f45"
+instance_type = "t2.micro"
 # SSH key pair
-  key_name = "my-aws-key"
+  key_name = "hydra"
 
 tags= {
 Name= "w1"
@@ -34,10 +34,10 @@ Name= "w1"
   }
 }
 resource "aws_instance" "worker2" {
-ami = "ami-0dee22c13ea7a9a67"
-instance_type = "t2.medium"
+ami = "ami-053a0835435bf4f45"
+instance_type = "t2.micro"
 # SSH key pair
-  key_name = "my-aws-key"
+  key_name = "hydra"
 
 tags= {
 Name= "w2"
