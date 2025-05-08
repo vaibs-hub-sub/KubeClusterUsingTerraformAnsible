@@ -51,3 +51,9 @@
       async: 60
       poll: 0
       ignore_errors: yes
+    
+    - name: Ensure br_netfilter module is loaded
+      modprobe:
+        name: br_netfilter
+        state: present
+
