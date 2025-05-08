@@ -1,62 +1,68 @@
-
-
 provider "aws" {
-  region     = "ap-south-2"
+  region = var.region
 }
+
+# Fetch the latest Ubuntu AMI in the given region
+data "aws_ami" "ubuntu" {
+  most_recent = true
+  owners      = ["099720109477"]  # Owner ID for Ubuntu AMIs
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-*64-generic"]
+  }
+}
+
+# Fetch the default VPC in the region
+data "aws_vpc" "default" {
+  default = true
+}
+
+# Fetch the default public subnet in the default VPC
+data "aws_subnet_ids" "public" {
+  vpc_id = data.aws_vpc.default.id
+}
+
+# Master Instance
 resource "aws_instance" "master" {
-ami = "ami-053a0835435bf4f45"
-instance_type = "t3.medium"
-# SSH key pair
-  key_name = "hydra"
-subnet_id     = "subnet-05af2e62e57061103"
-tags= {
-Name= "master"
-}
-# Block device mapping for the EBS volume
+  ami             = data.aws_ami.ubuntu.id
+  instance_type   = "t3.medium"
+  key_name        = var.key_name
+  subnet_id       = data.aws_subnet_ids.public.ids[0]
+  tags = {
+    Name = "master"
+  }
   root_block_device {
-    volume_size = 20  # Size in GB
-    volume_type = "gp2"  # General Purpose SSD
+    volume_size = 20
+    volume_type = "gp2"
   }
 }
+
+# Worker Instance 1
 resource "aws_instance" "worker1" {
-ami = "ami-053a0835435bf4f45"
-instance_type = "t3.micro"
-# SSH key pair
-  key_name = "hydra"
-subnet_id     = "subnet-05af2e62e57061103"
-tags= {
-Name= "w1"
-}
-# Block device mapping for the EBS volume
+  ami             = data.aws_ami.ubuntu.id
+  instance_type   = "t3.micro"
+  key_name        = var.key_name
+  subnet_id       = data.aws_subnet_ids.public.ids[0]
+  tags = {
+    Name = "w1"
+  }
   root_block_device {
-    volume_size = 20  # Size in GB
-    volume_type = "gp2"  # General Purpose SSD
+    volume_size = 20
+    volume_type = "gp2"
   }
 }
+
+# Worker Instance 2
 resource "aws_instance" "worker2" {
-ami = "ami-053a0835435bf4f45"
-instance_type = "t3.micro"
-# SSH key pair
-  key_name = "hydra"
-subnet_id     = "subnet-05af2e62e57061103"
-tags= {
-Name= "w2"
-}
-# Block device mapping for the EBS volume
-  root_block_device {
-    volume_size = 20  # Size in GB
-    volume_type = "gp2"  # General Purpose SSD
+  ami             = data.aws_ami.ubuntu.id
+  instance_type   = "t3.micro"
+  key_name        = var.key_name
+  subnet_id       = data.aws_subnet_ids.public.ids[0]
+  tags = {
+    Name = "w2"
   }
-}
-output "masterp_ip" {
-  value = aws_instance.master.private_ip
-}
-output "master_ip" {
-  value = aws_instance.master.public_ip
-}
-output "worker1_ip" {
-  value = aws_instance.worker1.public_ip
-}
-output "worker2_ip" {
-  value = aws_instance.worker2.public_ip
+  root_block_device {
+    volume_size = 20
+    volume_type = "gp2"
+  }
 }
