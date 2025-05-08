@@ -16,7 +16,7 @@ add some secrets first in ur github repo
 
 all of the things except these secrets are done dynamically so you just have to run the pipeline from the actions tab
 because the workflow is set to run only on workflow_dispatch you have to manually start the workflow
-
+also before hand set the region in which u want the cluster
 ---
 if you have changed the name of the repo insert your repo name in this part of the main.yml of the workflow and you are good to go
 
