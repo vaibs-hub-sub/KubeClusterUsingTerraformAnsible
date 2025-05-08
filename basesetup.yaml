@@ -15,14 +15,14 @@
     # Add the Kubernetes GPG key, which is required for securely downloading Kubernetes packages
     - name: Add Kubernetes GPG key
       shell: |
-        curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.29/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+        curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.33/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
       async: 60  # Maximum time in seconds to wait for this task to complete
       poll: 0    # Do not wait for completion; move to the next task
       ignore_errors: yes  # Continue if this task fails
     # Add the Kubernetes repository to the sources list to allow the installation of Kubernetes tools
     - name: Add Kubernetes apt repository
       shell: |
-        echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.29/deb/ /' | tee /etc/apt/sources.list.d/kubernetes.list
+        echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.33/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
       async: 60
       poll: 0
       ignore_errors: yes
