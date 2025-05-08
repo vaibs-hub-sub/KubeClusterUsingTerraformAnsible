@@ -8,7 +8,7 @@ ami = "ami-053a0835435bf4f45"
 instance_type = "t2.medium"
 # SSH key pair
   key_name = "hydra"
-
+subnet_id     = "subnet-05af2e62e57061103"
 tags= {
 Name= "master"
 }
@@ -23,7 +23,7 @@ ami = "ami-053a0835435bf4f45"
 instance_type = "t2.micro"
 # SSH key pair
   key_name = "hydra"
-
+subnet_id     = "subnet-05af2e62e57061103"
 tags= {
 Name= "w1"
 }
@@ -38,7 +38,7 @@ ami = "ami-053a0835435bf4f45"
 instance_type = "t2.micro"
 # SSH key pair
   key_name = "hydra"
-
+subnet_id     = "subnet-05af2e62e57061103"
 tags= {
 Name= "w2"
 }
