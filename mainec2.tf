@@ -5,7 +5,7 @@ provider "aws" {
 }
 resource "aws_instance" "master" {
 ami = "ami-053a0835435bf4f45"
-instance_type = "t2.medium"
+instance_type = "t3.medium"
 # SSH key pair
   key_name = "hydra"
 subnet_id     = "subnet-05af2e62e57061103"
@@ -20,7 +20,7 @@ Name= "master"
 }
 resource "aws_instance" "worker1" {
 ami = "ami-053a0835435bf4f45"
-instance_type = "t2.micro"
+instance_type = "t3.micro"
 # SSH key pair
   key_name = "hydra"
 subnet_id     = "subnet-05af2e62e57061103"
@@ -35,7 +35,7 @@ Name= "w1"
 }
 resource "aws_instance" "worker2" {
 ami = "ami-053a0835435bf4f45"
-instance_type = "t2.micro"
+instance_type = "t3.micro"
 # SSH key pair
   key_name = "hydra"
 subnet_id     = "subnet-05af2e62e57061103"
