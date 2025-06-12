@@ -1,0 +1,18 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: kube-cluster-creator
+  description: Creates a Kubernetes cluster using Terraform + Ansible via GitHub Actions
+  annotations:
+    github.com/project-slug: ramannkhanna2/KubeClusterUsingTerraformAnsible
+    backstage.io/techdocs-ref: dir:.
+    github.com/actions: main
+  tags:
+    - terraform
+    - ansible
+    - kubernetes
+    - github-actions
+spec:
+  type: service
+  lifecycle: experimental
+  owner: dev-team
