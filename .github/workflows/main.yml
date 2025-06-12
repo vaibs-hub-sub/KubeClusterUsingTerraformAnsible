@@ -93,7 +93,7 @@ jobs:
       - name: Create J2 template file
         run: |
           source variables.txt
-          mkdir -p /home/runner/work/kubeclstr-using-terraformansible/kubeclstr-using-terraformansible/templates
+          mkdir -p /home/runner/work/KubeClusterUsingTerraformAnsible/KubeClusterUsingTerraformAnsible/templates
           echo "
           apiVersion: kubeadm.k8s.io/v1beta3
           kind: InitConfiguration
@@ -107,7 +107,7 @@ jobs:
           kind: ClusterConfiguration
           networking:
             podSubnet: 192.168.0.3/16
-          " > /home/runner/work/kubeclstr-using-terraformansible/kubeclstr-using-terraformansible/masterip.yaml.j2      
+          " > /home/runner/work/KubeClusterUsingTerraformAnsible/KubeClusterUsingTerraformAnsible/masterip.yaml.j2      
       
       - name: Initialize Master Node
         run: ansible-playbook -i inventory kubemasterinit.yaml
