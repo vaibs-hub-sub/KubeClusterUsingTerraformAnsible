@@ -18,7 +18,7 @@ data "aws_vpc" "default" {
 }
 
 # Fetch the default public subnet in the default VPC
-data "aws_subnet_ids" "public" {
+data "aws_subnets" "public" {
   vpc_id = data.aws_vpc.default.id
 }
 
